@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, Response
 from unit import BaseUnit, PlayerUnit, EnemyUnit
 from base import Arena
 from classes import unit_classes
@@ -14,7 +14,7 @@ heroes = {
 arena = Arena()
 
 
-def chose_entity(entity_type: str, url: str):
+def chose_entity(entity_type: str, url: str) -> Response | str:
     if request.method == "GET":
         header = entity_type
         equipment = Equipment()
@@ -49,18 +49,18 @@ def chose_entity(entity_type: str, url: str):
 
 
 @app.route("/")
-def menu_page():
+def menu_page() -> str:
     return render_template("index.html")
 
 
 @app.route("/fight/")
-def start_fight():
+def start_fight() -> str:
     arena.start_game(player=heroes["player"], enemy=heroes["enemy"])
     return render_template("fight.html", heroes=heroes, result="Бой начался!")
 
 
 @app.route("/fight/hit")
-def hit():
+def hit() -> str:
     if arena.game_is_running:
         result = arena.player_hit()
         return render_template("fight.html", heroes=heroes, result=result)
@@ -68,7 +68,7 @@ def hit():
 
 
 @app.route("/fight/use-skill")
-def use_skill():
+def use_skill() -> str:
     if arena.game_is_running:
         result = arena.player_use_skill()
         return render_template("fight.html", heroes=heroes, result=result)
@@ -77,7 +77,7 @@ def use_skill():
 
 
 @app.route("/fight/pass-turn")
-def pass_turn():
+def pass_turn() -> str:
     if arena.game_is_running:
         result = arena.next_turn()
         return render_template("fight.html", heroes=heroes, result=result)
@@ -86,15 +86,15 @@ def pass_turn():
 
 
 @app.route("/fight/end-fight")
-def end_fight():
+def end_fight() -> str:
     return render_template("index.html", heroes=heroes)
 
 
 @app.route("/choose-hero/", methods=['POST', 'GET'])
-def choose_hero():
+def choose_hero() -> Response | str:
     return chose_entity("Выберите героя", "choose_enemy")
 
 
 @app.route("/choose-enemy/", methods=['POST', 'GET'])
-def choose_enemy():
+def choose_enemy() -> Response | str:
     return chose_entity("Выберите врага", "start_fight")
