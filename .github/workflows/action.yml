@@ -25,5 +25,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd SkyPro_CourseWork_5/application
+            cd SkyPro_CourseWork_5
+            cd application
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
