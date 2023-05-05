@@ -1,3 +1,14 @@
-# coursework_5
+# SkyPro
 
-# Для выполнения курсовой работы также можно воспользоваться папкой help files
+## CourseWork 5
+
+***
+About project
+***
+
+* OOP
+* Dataclasses
+* Typing
+* Docker
+* VM
+* GitHub Actions
