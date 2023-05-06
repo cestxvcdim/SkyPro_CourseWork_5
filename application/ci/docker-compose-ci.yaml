@@ -4,7 +4,6 @@ services:
 
   app:
     image: cestxvcdim/skypro_coursework5:$GITHUB_REF_NAME-$GITHUB_RUN_ID
-    entrypoint: gunicorn /application/wsgi:app
     command: gunicorn --bind 0.0.0.0:5000 wsgi:app
     restart: always
 
