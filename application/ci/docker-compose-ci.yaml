@@ -4,7 +4,7 @@ services:
 
   app:
     image: cestxvcdim/skypro_coursework5:$GITHUB_REF_NAME-$GITHUB_RUN_ID
-    command: gunicorn --bind 0.0.0.0:5000 'application/wsgi':app
+    command: gunicorn --bind 0.0.0.0:5000 './application/wsgi':app
     restart: always
 
   nginx:
