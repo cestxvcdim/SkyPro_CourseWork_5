@@ -18,6 +18,19 @@ jobs:
     steps:
       - name: clone code
         uses: actions/checkout@v2
+      - name: render configs
+        run: |
+          mkdir deploy
+          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+      - name: copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "deploy/docker-compose.yaml"
+          target: application_ci
+          strip_components: 1
       - name: deploy app
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -25,7 +38,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd SkyPro_CourseWork_5
-            cd application
-            cd infra
+            cd application_ci
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
