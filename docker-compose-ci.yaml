@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   app:
-    image: cestxvcdim/skypro_app:main-4900934857
+    image: cestxvcdim/skypro_coursework5:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     command: gunicorn --bind 0.0.0.0:5000 wsgi:app
     restart: always
 
