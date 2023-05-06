@@ -21,7 +21,7 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
-          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat ./application/infra/docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
       - name: copy files to server
         uses: appleboy/scp-action@master
         with:
