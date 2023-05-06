@@ -21,14 +21,15 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
-          cat ./application/infra/docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat ./application/ci/docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat ./application/ci/nginx-ci.conf | envsubst > deploy/nginx.conf
       - name: copy files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "deploy/docker-compose.yaml"
+          source: "deploy/docker-compose.yaml,deploy/nginx.conf"
           target: application_ci
           strip_components: 1
       - name: deploy app
