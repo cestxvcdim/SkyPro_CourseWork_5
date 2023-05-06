@@ -98,7 +98,3 @@ def choose_hero() -> Response | str:
 @app.route("/choose-enemy/", methods=['POST', 'GET'])
 def choose_enemy() -> Response | str:
     return chose_entity("Выберите врага", "start_fight")
-
-
-if __name__ == "__main__":
-    app.run()
