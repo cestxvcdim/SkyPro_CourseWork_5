@@ -43,8 +43,6 @@ class BaseUnit(ABC):
         if target.stamina > target.armor.stamina_per_turn * target.unit_class.stamina:
             target.stamina -= target.armor.stamina_per_turn * target.unit_class.stamina
             damage -= target.armor.defense * target.unit_class.armor
-        else:
-            pass
         return target.get_damage(damage)
 
     def get_damage(self, damage: int | float) -> Optional[int | float]:
